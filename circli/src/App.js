@@ -39,7 +39,7 @@ const AppContent = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomeIntro />} />
-          <Route path="/Feed" element={<Feed />} />
+          <Route path="/Feed" element={<Feed user={user}/>} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/UserProfile" element={<UserProfile user={user} />} />
         </Routes>

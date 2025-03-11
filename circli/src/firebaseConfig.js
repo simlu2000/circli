@@ -18,9 +18,9 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+//const analytics = getAnalytics(app);
 const db = getDatabase(app); // Ottieni l'istanza del Realtime Database
 const auth = getAuth(app);
 const GoogleProvider = new GoogleAuthProvider();
 // Export needed firebase functions
-export { app, analytics, db, ref, set, getAuth, GoogleAuthProvider,GoogleProvider, signInWithPopup, signInWithEmailAndPassword };
+export { app, db, ref, set, getAuth, GoogleAuthProvider,GoogleProvider, signInWithPopup, signInWithEmailAndPassword };

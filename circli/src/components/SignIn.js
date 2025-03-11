@@ -8,13 +8,12 @@ import { useNavigate } from 'react-router-dom';
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState(''); // Solo per la registrazione
-  const [isRegistering, setIsRegistering] = useState(false); // Stato per determinare se siamo in modalità registrazione
+  const [displayName, setDisplayName] = useState(''); 
+  const [isRegistering, setIsRegistering] = useState(false); //stato per determinare se siamo in modalità registrazione
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const auth = getAuth();
 
-  // Scrive i dati utente nel Realtime Database
   const writeUserData = async (user, displayName) => {
     try {
       console.log('Saving user data to DB:', user);
@@ -37,38 +36,36 @@ const SignIn = () => {
     }
   };
 
-  // Funzione per la registrazione/login con email e password
   const handleEmailPasswordSignIn = async (e) => {
     e.preventDefault();
     try {
       if (isRegistering) {
-        // Registrazione
+        //registrazione
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Scrive i dati dell'utente nel database
-        await writeUserData(user, displayName); // Passa displayName qui
+        //scrivo i dati dell'utente nel database
+        await writeUserData(user, displayName); 
       } else {
-        // Login
+        //login
         await signInWithEmailAndPassword(auth, email, password);
       }
-      navigate('/'); // Redirect dopo la registrazione o login
+      navigate('/'); //redirect dopo la registrazione o login
     } catch (error) {
       console.error('Errore durante la registrazione/login: ', error);
       setErrorMessage('Errore: ' + error.message);
     }
   };
 
-  // Funzione per il login con Google
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
 
-      // Scrive i dati dell'utente nel database
+      //scrivo i dati dell'utente nel database
       await writeUserData(user, user.displayName);
-      navigate('/'); // Redirect dopo il login
+      navigate('/'); //redirect dopo il login
     } catch (error) {
       console.error('Errore durante il login con Google: ', error);
       setErrorMessage('Errore durante il login con Google: ' + error.message);
