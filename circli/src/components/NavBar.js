@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React,{useState} from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Avatar, Button, Tooltip, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
@@ -7,13 +7,13 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 
-const pages = ['Feed', 'SignIn'];
+const pages = ['Feed'];
 const settings = ['UserProfile'];
 
 
-function NavBar() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
-    const [anchorElUser, setAnchorElUser] = React.useState(null);
+function NavBar({ user }) {
+    const [anchorElNav, setAnchorElNav] = useState(null);
+    const [anchorElUser, setAnchorElUser] = useState(null);
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -31,18 +31,18 @@ function NavBar() {
     };
 
     const auth = getAuth();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Logout success
-        navigate('/Home');
-      })
-      .catch((error) => {
-        console.error('Error during logout', error);
-      });
-  };
+    const handleLogout = () => {
+        signOut(auth)
+            .then(() => {
+                // Logout success
+                navigate('/Home');
+            })
+            .catch((error) => {
+                console.error('Error during logout', error);
+            });
+    };
 
     return (
         <AppBar position="static" style={{ backgroundColor: '#2B50AA' }}>
@@ -131,11 +131,20 @@ function NavBar() {
                                 </Typography>
                             </MenuItem>
                         ))}
+                        {!user && (
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography sx={{ textAlign: 'center' }}>
+                                    <Link to="/SignIn" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                        SignIn
+                                    </Link>
+                                </Typography>
+                            </MenuItem>
+                        )}
                     </Box>
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                <Avatar  src="/static/images/avatar/2.jpg" />
                             </IconButton>
                         </Tooltip>
                         <Menu

@@ -1,45 +1,100 @@
 import React, { useState } from 'react';
 import { Button, TextField, Container, Typography, Box } from '@mui/material';
-import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from '../firebaseConfig';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+import { db } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [displayName, setDisplayName] = useState(''); // Solo per la registrazione
+  const [isRegistering, setIsRegistering] = useState(false); // Stato per determinare se siamo in modalità registrazione
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
   const auth = getAuth();
 
-  const handleEmailPasswordSignIn = async (e) => {
-    e.preventDefault();
+  // Scrive i dati utente nel Realtime Database
+  const writeUserData = async (user, displayName) => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); //redirect to home after successful login
+      console.log('Saving user data to DB:', user);
+      console.log('user.uid:', user.uid);
+      console.log("ref(db, 'users/' + user.uid):", ref(db, 'users/' + user.uid));
+      console.log("db:", db);
+      await set(ref(db, 'users/' + user.uid), {
+        displayName: displayName || user.displayName || null,
+        email: user.email,
+        createdAt: new Date().toISOString(),
+      }).then(() => {
+        console.log('Dati utente salvati nel database CON SUCCESSO');
+      }).catch((error) => {
+        console.error('Errore durante salvataggio dati nel db, ', error);
+        console.log("error:", error);
+      });
     } catch (error) {
-      console.error('Error signing in with email and password: ', error);
-      setErrorMessage('Failed to sign in: ' + error.message); //error message
+      console.error('Errore nel salvataggio dei dati nel database: ', error);
+      console.log("error:", error);
     }
   };
 
+  // Funzione per la registrazione/login con email e password
+  const handleEmailPasswordSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      if (isRegistering) {
+        // Registrazione
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Scrive i dati dell'utente nel database
+        await writeUserData(user, displayName); // Passa displayName qui
+      } else {
+        // Login
+        await signInWithEmailAndPassword(auth, email, password);
+      }
+      navigate('/'); // Redirect dopo la registrazione o login
+    } catch (error) {
+      console.error('Errore durante la registrazione/login: ', error);
+      setErrorMessage('Errore: ' + error.message);
+    }
+  };
+
+  // Funzione per il login con Google
   const handleGoogleSignIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
-      await signInWithPopup(auth, provider);
-      navigate('/');
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+
+      // Scrive i dati dell'utente nel database
+      await writeUserData(user, user.displayName);
+      navigate('/'); // Redirect dopo il login
     } catch (error) {
-      console.error('Error signing in with Google: ', error);
-      setErrorMessage('Failed to sign in with Google: ' + error.message);
+      console.error('Errore durante il login con Google: ', error);
+      setErrorMessage('Errore durante il login con Google: ' + error.message);
     }
   };
 
   return (
     <Container maxWidth="xs">
       <Box display="flex" flexDirection="column" alignItems="center" sx={{ mt: 5 }}>
-        <Typography variant="h5" gutterBottom>Sign In</Typography>
+        <Typography variant="h5" gutterBottom>
+          {isRegistering ? 'Register' : 'Sign In'}
+        </Typography>
 
         {errorMessage && <Typography color="error" sx={{ mb: 2 }}>{errorMessage}</Typography>}
 
         <form onSubmit={handleEmailPasswordSignIn} style={{ width: '100%' }}>
+          {isRegistering && (
+            <TextField
+              label="Display Name"
+              fullWidth
+              required
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
+              margin="normal"
+            />
+          )}
           <TextField
             label="Email"
             type="email"
@@ -59,7 +114,7 @@ const SignIn = () => {
             margin="normal"
           />
           <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, backgroundColor: '#2c54ac' }}>
-            Sign In
+            {isRegistering ? 'Register' : 'Sign In'}
           </Button>
         </form>
 
@@ -71,6 +126,14 @@ const SignIn = () => {
         >
           Sign in with Google
         </Button>
+
+        <Typography
+          variant="body2"
+          sx={{ mt: 2, cursor: 'pointer', color: '#2c54ac' }}
+          onClick={() => setIsRegistering(!isRegistering)}
+        >
+          {isRegistering ? 'Already have an account? Sign In' : 'Don\'t have an account? Register'}
+        </Typography>
       </Box>
     </Container>
   );
