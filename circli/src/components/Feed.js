@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import ButtonNewPost from './ButtonNewPost';
 import DialogNewPost from './DialogNewPost';
-function Feed({user}) {
+const Feed = ({user, getAllPosts: fetchAllPosts }) => {
+  const [AllPosts, setAllPosts]=useState();
   const [newPostOpen, setNewPostOpen] = useState(false);
 
   const handleNewPostOpen = () => {
@@ -10,6 +11,20 @@ function Feed({user}) {
   const handleNewPostClose = () => {
     setNewPostOpen(false);
   }
+
+  useEffect(() => {
+    const fetchAllPosts = async () => {
+      try{
+        const postsList = await fetchAllPosts(user);
+        setAllPosts(postsList);
+      }catch(error) {
+        console.error("Error fetching posts: ",error);
+      }
+    };
+    if(user){
+      fetchAllPosts();
+    }
+  },[fetchAllPosts]);
 
   return (
     <div>
