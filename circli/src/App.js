@@ -7,6 +7,7 @@ import HomeIntro from './components/HomeIntro';
 import Feed from './components/Feed';
 import SignIn from './components/SignIn';
 import UserProfile from './components/UserProfile';
+import { fetchAllPosts } from './components/postsService';
 
 const AppContent = () => {
   const [user, setUser] = useState(null);
@@ -39,7 +40,7 @@ const AppContent = () => {
       <div className="App">
         <Routes>
           <Route path="/" element={<HomeIntro />} />
-          <Route path="/Feed" element={<Feed user={user}/>} />
+          <Route path="/Feed" element={<Feed user={user} getAllPosts={fetchAllPosts}/>} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/UserProfile" element={<UserProfile user={user} />} />
         </Routes>
