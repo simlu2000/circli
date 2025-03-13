@@ -48,7 +48,7 @@ function NavBar({ user }) {
         <AppBar position="static" style={{ backgroundColor: '#2B50AA' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px' }} />
+                <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px',borderRadius:'25px' }} />
                 <Typography
                         variant="h6"
                         noWrap
@@ -148,10 +148,12 @@ function NavBar({ user }) {
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography sx={{ textAlign: 'center' }}>
                                         <Link to={`/${setting}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                                            {setting}
+                                            {setting} <br/>
+                                            <LogoutIcon onClick={handleLogout} style={{ cursor: 'pointer' }} />
+
                                         </Link>
+
                                     </Typography>
-                                    <LogoutIcon onClick={handleLogout} style={{ cursor: 'pointer' }} />
 
                                 </MenuItem>
 

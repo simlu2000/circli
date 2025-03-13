@@ -5,10 +5,11 @@ function UserProfile({ user }) {
   return (
     <>
       {user ? (
-        <div>
+        <div >
           <img style={{ width: '40%' }} src="/static/images/avatar/2.jpg" />
           <h1>Hi {user.displayName || user.email}</h1>
           <div
+            className="profile"
             style={{
               width: 'auto',
               marginLeft: '15%',
@@ -16,9 +17,6 @@ function UserProfile({ user }) {
               borderRadius: '5px',
               backgroundColor: '#DEE5F7',
               height: 'auto',
-              display: 'flex',
-              alignItems: 'flex-start',
-              flexDirection: 'row',
 
             }}
           >

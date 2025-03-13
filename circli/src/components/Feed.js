@@ -34,17 +34,12 @@ const Feed = ({ user, getAllPosts: fetchAllPosts }) => {
       <DialogNewPost open={newPostOpen} onClose={handleNewPostClose} user={user} />
 
       {Object.entries(AllPosts).map(([userId, userPosts]) => (
-        <div key={userId} style={{
-          width: 'auto',
-          marginLeft: '15%',
-          marginRight: '15%',
-        }}>
+        <div key={userId} className="post">
           {Object.entries(userPosts).map(([postId, postData]) => (
             <div key={postId} style={{
               border: '1px solid #ccc',
               borderRadius: '25px',
-              padding: '10px',
-              margin: '50px'
+              marginBottom: '50px'
             }}>
               <p><strong>Nome:</strong> {postData.displayName}</p>
               <p><strong>Testo:</strong> {postData.textContent}</p>
