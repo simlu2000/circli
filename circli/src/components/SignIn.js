@@ -50,7 +50,7 @@ const SignIn = () => {
         //login
         await signInWithEmailAndPassword(auth, email, password);
       }
-      navigate('/'); //redirect dopo la registrazione o login
+      navigate('/Feed'); //redirect dopo la registrazione o login
     } catch (error) {
       console.error('Errore durante la registrazione/login: ', error);
       setErrorMessage('Errore: ' + error.message);
@@ -65,7 +65,7 @@ const SignIn = () => {
 
       //scrivo i dati dell'utente nel database
       await writeUserData(user, user.displayName);
-      navigate('/'); //redirect dopo il login
+      navigate('/Feed'); //redirect dopo il login
     } catch (error) {
       console.error('Errore durante il login con Google: ', error);
       setErrorMessage('Errore durante il login con Google: ' + error.message);

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import UserField from './UserField';
 function UserProfile({ user }) {
   
   return (
@@ -22,9 +22,9 @@ function UserProfile({ user }) {
               
             }}
           >
-            <input className="user-info" type="text" value={user.displayName} readOnly />
-            <input className="user-info" type="email" value={user.email} readOnly />
-          </div>
+            <UserField textValue={user.displayName} labelText={"Name"} className="user-info"/>
+            <UserField textValue={user.email} labelText={"E-mail"} className="user-info"/>
+            </div>
         </div>
       ) : (
         <h1>No user logged</h1>

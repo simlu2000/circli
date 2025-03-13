@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { getAuth, signOut } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-
+import logo from '../../src/logo.png';
 const pages = ['Feed'];
 const settings = ['UserProfile'];
 
@@ -48,8 +48,8 @@ function NavBar({ user }) {
         <AppBar position="static" style={{ backgroundColor: '#2B50AA' }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-                    <Typography
+                <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px' }} />
+                <Typography
                         variant="h6"
                         noWrap
                         component="a"
