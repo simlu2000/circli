@@ -1,6 +1,5 @@
-// components/postsService.js
 import { getDatabase, ref, get } from 'firebase/database';
-import { db } from '../firebaseConfig'; // Assicurati che il percorso sia corretto
+import { db } from '../firebaseConfig'; 
 
 export const fetchAllPosts = async (user) => {
   try {
