@@ -9,6 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import NewPostField from '../NewPostField';
 import ButtonSendPost from './ButtonSendPost';
+import Textarea from '@mui/joy/Textarea';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -41,10 +42,22 @@ export default function DialogNewPost({ open, onClose, user }) {
           </Button>
         </Toolbar>
       </AppBar>
-      <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)', width: '100%' }}>
-        <NewPostField style={{ flex: 1 }} />
-        <ButtonSendPost />
-      </div>
+      <Textarea
+        placeholder="Insert here the text"
+        style={{
+          width: 'auto',
+          marginLeft:'5%',
+          marginRight:'5%',
+          fontSize: '1.5rem',
+          padding: '10px',
+          border: '1px solid #2B50AA',
+          boxSizing: 'border-box',
+          marginTop:'2%',
+          resize: 'vertical',
+
+        }}
+      />
+      <ButtonSendPost />
     </Dialog>
   );
 }
