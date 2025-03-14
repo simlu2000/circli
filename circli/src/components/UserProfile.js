@@ -6,7 +6,7 @@ function UserProfile({ user }) {
     <>
       {user ? (
         <div >
-          <img style={{ width: '40%' }} src="/static/images/avatar/2.jpg" />
+          {/*<img style={{ width: '40%' }} src="/static/images/avatar/2.jpg" />*/}
           <h1>Hi {user.displayName || user.email}</h1>
           <div
             className="profile"

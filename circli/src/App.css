@@ -1,16 +1,29 @@
+body{
+  border:none;
+  margin:0;
+}
+/* Container e Navbar */
+.navbar-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+.navbar-toolbar {
+  padding: 0;
+  width: 100%;
+}
+
+/* Impostazioni generali */
 .App {
   text-align: center;
+  margin: 0;
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
@@ -28,51 +41,180 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Feed Section */
+.feed-container {
+  padding: 20px;
+}
+
+.feed-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.post {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: block; 
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.post-body {
+  padding: 10px 0;
+  color: #333;
+}
+
+.post-hashtags {
+  font-style: italic;
+  color: #2b50aa;
+}
+
+.post-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.like-button {
+  background: none;
+  border: none;
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.like-button:hover {
+  color: #ff4d4d;
+}
+
+.comments-section {
+  margin-top: 15px;
+  width: 100%;
+}
+
+.comment {
+  background-color: #f1f1f1;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.post-card {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #2b50aa;
+}
+
+.comment p {
+  font-size: 14px;
+  color: #555;
+}
+
+.comment strong {
+  font-weight: bold;
+  color: #2b50aa;
+}
+
+button:disabled {
+  background-color: #ddd;
+  cursor: not-allowed;
+}
+
+/* Schermi piccoli */
+@media (max-width: 768px) {
+  .feed-title {
+      font-size: 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+
+  .post {
+      padding: 10px;
+  }
+
+  .post-header {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .like-button {
+      font-size: 1rem;
+  }
+
+  .comments-section {
+      margin-top: 15px;
+  }
+
+  textarea {
+      font-size: 12px;
+  }
+
+  .comment p {
+      font-size: 12px;
   }
 }
 
-.user-info{
-  border-radius: 25px;
-  font-size:1.2rem;
-  border:none;
-  padding:5px;
-  width:50%;
-  height:30px;
-}
-@media (min-width: 768px) { 
+@media (max-width: 480px) {
+  .feed-title {
+      font-size: 1.2rem;
+  }
+
   .post {
-    width: 70%; 
-    margin-left: 15%; 
-    margin-right: 15%;
-    padding: 20px; 
-   
+      padding: 8px;
+      width: auto;
   }
-  .profile{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: row;
+
+  .post-header {
+      flex-direction: column;
+      align-items: flex-start;
   }
-  
-}
-@media (max-width: 767px) { 
-  .post {
-    width:'100%';
-    padding: 10px; 
-    border: none; 
+
+  .like-button {
+      font-size: 1rem;
   }
-  .profile{
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
+
+  .comments-section {
+      margin-top: 10px;
   }
-  .user-info{
-    margin-bottom: '15%';
+
+  textarea {
+      font-size: 12px;
+  }
+
+  .comment p {
+      font-size: 12px;
   }
 }
 
+@media (min-width: 1024px) {
+  .post {
+      width: auto;
+      margin-right:15%;
+      margin-left:15%;
+  }
+}
