@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
-import { Button, TextField, Container, Typography, Box } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Button, TextField, Container, Typography, Box, backdropClasses } from '@mui/material';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { db } from '../firebaseConfig';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import animationData from '../animations/Animation - 1741882337471.json';
+import Lottie from 'react-lottie';
 
 const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [displayName, setDisplayName] = useState(''); 
+  const [displayName, setDisplayName] = useState('');
   const [isRegistering, setIsRegistering] = useState(false); //stato per determinare se siamo in modalità registrazione
   const [errorMessage, setErrorMessage] = useState('');
+  const isDesktopOrLaptop = useMediaQuery({ minWidth: 1024 });
+  const isMobile = useMediaQuery({ maxWidth: 1023 });
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -45,7 +50,7 @@ const SignIn = () => {
         const user = userCredential.user;
 
         //scrivo i dati dell'utente nel database
-        await writeUserData(user, displayName); 
+        await writeUserData(user, displayName);
       } else {
         //login
         await signInWithEmailAndPassword(auth, email, password);
@@ -72,65 +77,85 @@ const SignIn = () => {
     }
   };
 
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
   return (
-    <Container maxWidth="xs">
-      <Box display="flex" flexDirection="column" alignItems="center" sx={{ mt: 5 }}>
-        <Typography variant="h5" gutterBottom>
-          {isRegistering ? 'Register' : 'Sign In'}
-        </Typography>
 
-        {errorMessage && <Typography color="error" sx={{ mb: 2 }}>{errorMessage}</Typography>}
+    <Container maxWidth="md">
+      <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center" sx={{ mt: 5, backgroundColor:'#ebeef7', borderRadius:'15px',marginTop:'15%',}}>
+        {isDesktopOrLaptop && (
+          <Box sx={{ width: '50%', paddingRight: 2,marginRight:'2%' }}>
+            <Lottie options={defaultOptions} height={500} width={500} />
+          </Box>
+        )}
+        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '100%' , padding:'15px'}}>
+          <Typography variant="h5" gutterBottom>
+            {isRegistering ? 'Register' : 'Sign In'}
+          </Typography>
 
-        <form onSubmit={handleEmailPasswordSignIn} style={{ width: '100%' }}>
-          {isRegistering && (
+          {errorMessage && <Typography color="error" sx={{ mb: 2 }}>{errorMessage}</Typography>}
+
+          <form onSubmit={handleEmailPasswordSignIn} style={{
+            width: '100%',
+            borderRadius: '25%',
+          }}>
+            {isRegistering && (
+              <TextField
+                label="Display Name"
+                fullWidth
+                required
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                margin="normal"
+              />
+            )}
             <TextField
-              label="Display Name"
+              label="Email"
+              type="email"
               fullWidth
               required
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               margin="normal"
             />
-          )}
-          <TextField
-            label="Email"
-            type="email"
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              margin="normal"
+            />
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, backgroundColor: '#2c54ac' }}>
+              {isRegistering ? 'Register' : 'Sign In'}
+            </Button>
+          </form>
+
+          <Button
+            variant="contained"
             fullWidth
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            margin="normal"
-          />
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            margin="normal"
-          />
-          <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, backgroundColor: '#2c54ac' }}>
-            {isRegistering ? 'Register' : 'Sign In'}
+            sx={{ mt: 2, backgroundColor: '#FF2E00' }}
+            onClick={handleGoogleSignIn}
+          >
+            Sign in with Google
           </Button>
-        </form>
 
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{ mt: 2, backgroundColor: '#FF2E00' }}
-          onClick={handleGoogleSignIn}
-        >
-          Sign in with Google
-        </Button>
-
-        <Typography
-          variant="body2"
-          sx={{ mt: 2, cursor: 'pointer', color: '#2c54ac' }}
-          onClick={() => setIsRegistering(!isRegistering)}
-        >
-          {isRegistering ? 'Already have an account? Sign In' : 'Don\'t have an account? Register'}
-        </Typography>
+          <Typography
+            variant="body2"
+            sx={{ mt: 2, cursor: 'pointer', color: '#2c54ac' }}
+            onClick={() => setIsRegistering(!isRegistering)}
+          >
+            {isRegistering ? 'Already have an account? Sign In' : 'Don\'t have an account? Register'}
+          </Typography>
+        </Box>
       </Box>
     </Container>
   );

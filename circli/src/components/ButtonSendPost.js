@@ -9,7 +9,6 @@ export default function ButtonSendPost({onClick}) {
       <Fab sx={{backgroundColor:'#FAC338'}}aria-label="edit" onClick={onClick}>
         <SendIcon />
       </Fab>
-      
     </Box>
   );
 }

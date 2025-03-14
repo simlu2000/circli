@@ -26,6 +26,7 @@ function HomeIntro() {
             <Lottie options={defaultOptions} height={400} width={400} /> 
       <h1 style={{ fontSize: '5rem',lineHeight:'10px' }}>Circli</h1>
       <h2 style={{ fontSize: '2rem' }}>Share your life</h2>
+      
     </div>
   );
 }
