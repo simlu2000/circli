@@ -23,22 +23,20 @@ const AppContent = () => {
     const auth = getAuth();
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        // Utente loggato
         setUser(user);
         if (location.pathname === '/SignIn') {
-          navigate('/'); // Se l'utente è già loggato, reindirizzalo alla home o altra pagina
+          navigate('/'); // Reindirizza alla home se già loggato
         }
       } else {
-        // Non loggato
         setUser(null);
-        if (location.pathname !== '/SignIn') {
-          navigate('/SignIn'); // Reindirizza a SignIn solo se non ci si trova già lì
+        if (!location.pathname.startsWith('/SignIn')) {
+          navigate('/SignIn'); // Reindirizza alla login se non loggato
         }
       }
     });
     return () => unsubscribe();
   }, [navigate, location]);
-
+  
   const addLike = async (userId, postId, likerId) => {
     try {
       const likeRef = ref(db, `posts/${userId}/${postId}/likes/${likerId}`);
