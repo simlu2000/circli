@@ -9,9 +9,9 @@ import SignIn from './components/SignIn';
 import { Typography } from '@mui/material';
 import UserProfile from './components/UserProfile';
 import { fetchAllPosts } from './components/postsService';
-import { ref, set } from 'firebase/database';
 import { db } from './firebaseConfig';
 import { light } from '@mui/material/styles/createPalette';
+import { ref, set, update, push } from 'firebase/database'; 
 
 const AppContent = () => {
   const [user, setUser] = useState(null);
