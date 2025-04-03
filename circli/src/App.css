@@ -1,18 +1,65 @@
 body{
   border:none;
   margin:0;
+  font-family: 'Roboto', sans-serif;
+  background: #74ebd5;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  height:100vh;
 }
+
+.home-intro-container {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  align-items: flex-start;
+  height: 90vh;
+  width: 100vw;
+  background: linear-gradient(135deg, #6dd5ed, #2193b0); 
+  color: white;
+  font-family: 'Roboto', sans-serif; 
+  text-align: center;
+}
+
+.intro-area{
+  margin-top:5%;
+}
+
+.home-intro-title {
+  font-size: 6rem;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+  font-weight: 700;
+
+}
+
+#circliWelcome{
+  margin-top:15%;
+
+}
+.home-intro-subtitle {
+  font-size: 1.5rem; 
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
 /* Container e Navbar */
 .navbar-container {
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+  padding: 10px 20px;
+  position: sticky; 
+  top: 0;
+  z-index: 100;
+  color:#000000;
 }
 
 .navbar-toolbar {
   padding: 0;
   width: 100%;
+  
 }
 
 /* Impostazioni generali */
@@ -179,6 +226,15 @@ button:disabled {
   }
 }
 
+@media (max-width: 600px) {
+  .home-intro-title {
+    font-size: 2.5rem;
+  }
+
+  .home-intro-subtitle {
+    font-size: 1.2rem;
+  }
+}
 @media (max-width: 480px) {
   .feed-title {
       font-size: 1.2rem;

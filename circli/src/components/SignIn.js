@@ -89,7 +89,12 @@ const SignIn = () => {
   return (
 
     <Container maxWidth="md">
-      <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center" sx={{ mt: 5, backgroundColor:'#ebeef7', borderRadius:'15px',marginTop:'15%',}}>
+      <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center" 
+      sx={{ 
+        mt: 5, 
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      backdropFilter: 'blur(10px)',
+      boxShadow:'0 2px 4px rgba(0, 0, 0, 0.1)', borderRadius:'15px',marginTop:'15%',}}>
         {isDesktopOrLaptop && (
           <Box sx={{ width: '50%', paddingRight: 2,marginRight:'2%' }}>
             <Lottie options={defaultOptions} height={500} width={500} />

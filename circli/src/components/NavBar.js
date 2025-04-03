@@ -43,7 +43,15 @@ function NavBar({ user }) {
   };
 
   return (
-    <AppBar position="static" style={{ backgroundColor: '#2B50AA' }}>
+    <AppBar position="static" style={{  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+      backdropFilter: 'blur(10px)',
+      boxShadow:'0 2px 4px rgba(0, 0, 0, 0.1)',  
+      width: 'auto',
+      marginLeft:'2%',
+      marginRight:'2%',
+      marginTop:'1%',
+      borderRadius:'35px',
+    }}>
       <Container disableGutters className="navbar-container">
         <Toolbar disableGutters className="navbar-toolbar">
           <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px', borderRadius: '25px' }} />
