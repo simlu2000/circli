@@ -9,7 +9,7 @@ export default function ButtonNewPost({ onClick }) {
             position: 'fixed',
             bottom: 16,
             right: 16, 
-            transform: 'translateX(-50%)' // Sposta l'elemento indietro di metà della sua larghezza
+            transform: 'translateX(-50%)' //imposta l'elemento indietro di metà della sua larghezza
         }}>
             <Fab sx={{ backgroundColor: '#FAC338' }} aria-label="edit" onClick={onClick}>
                 <EditIcon />
