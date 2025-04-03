@@ -7,7 +7,7 @@ export default function ButtonNewPost({ onClick }) {
     return (
         <Box sx={{
             position: 'fixed',
-            bottom: 16,
+            bottom: 100,
             right: 16, 
             transform: 'translateX(-50%)' //imposta l'elemento indietro di metà della sua larghezza
         }}>
