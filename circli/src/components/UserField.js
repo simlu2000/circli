@@ -9,6 +9,7 @@ export default function UserField({ textValue, labelText }) {
       sx={{
         '& > :not(style)': { width: '100%' },
         width: '100%',
+        backgroundColor:'#FFFFFF',
       }}
       noValidate
       autoComplete="off"

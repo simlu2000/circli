@@ -8,7 +8,7 @@ export default function ButtonNewPost({ onClick }) {
         <Box sx={{
             position: 'fixed',
             bottom: 16,
-            left: '50%', 
+            right: 16, 
             transform: 'translateX(-50%)' // Sposta l'elemento indietro di metà della sua larghezza
         }}>
             <Fab sx={{ backgroundColor: '#FAC338' }} aria-label="edit" onClick={onClick}>

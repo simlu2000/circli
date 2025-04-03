@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import ButtonNewPost from './ButtonNewPost';
 import DialogNewPost from './DialogNewPost';
 import { AiFillHeart } from 'react-icons/ai';
-import { getDatabase, ref, get, remove } from 'firebase/database';
+import { getDatabase, ref, get, remove, push, set, serverTimestamp } from 'firebase/database';
 import { getAuth } from 'firebase/auth';
 
-const Feed = ({ user, getAllPosts: fetchAllPosts, addLike, addComment }) => {
+const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
   const [allPosts, setAllPosts] = useState({});
   const [newPostOpen, setNewPostOpen] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -42,6 +42,7 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike, addComment }) => {
 
       if (!likeExists) {
         addLike(userId, postId, user.uid);
+        window.location.reload();
       } else {
         console.log('User already liked this post.');
       }
@@ -56,21 +57,36 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike, addComment }) => {
 
     try {
       await remove(likeRef);
+      window.location.reload();
     } catch (error) {
       console.error('Error removing like:', error);
     }
   };
-
   const handleComment = (userId, postId, commentText) => {
     if (addComment) {
-      addComment(userId, postId, user.uid, commentText);
+      const displayName = user.displayName;
+
+      addComment(userId, postId, commentText, displayName);
+      window.location.reload();
     }
+  };
+
+  const addComment = (userId, postId, commentText, displayName) => {
+    const db = getDatabase();
+    const commentsRef = ref(db, `posts/${userId}/${postId}/comments`);
+    const newCommentRef = push(commentsRef);
+
+    set(newCommentRef, {
+      text: commentText,
+      displayName: displayName,
+      timestamp: serverTimestamp()
+    });
   };
 
   if (loading) return <p>Loading posts...</p>;
 
   return (
-    <div className="feed-container">
+    <div >
       <ButtonNewPost onClick={handleNewPostOpen} />
       <DialogNewPost open={newPostOpen} onClose={handleNewPostClose} user={user} />
 

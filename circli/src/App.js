@@ -7,7 +7,7 @@ import HomeIntro from './components/HomeIntro';
 import Feed from './components/Feed';
 import SignIn from './components/SignIn';
 import { Typography } from '@mui/material';
-import UserProfile from './components/UserProfile';
+import Profile from './components/Profile';
 import { fetchAllPosts } from './components/postsService';
 import { db } from './firebaseConfig';
 import { light } from '@mui/material/styles/createPalette';
@@ -70,7 +70,7 @@ const AppContent = () => {
           <Route path="/" element={<HomeIntro />} />
           <Route path="/Feed" element={<Feed user={user} getAllPosts={fetchAllPosts} addComment={addComment} addLike={addLike} />} />
           <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/UserProfile" element={<UserProfile user={user} />} />
+          <Route path="/Profile" element={<Profile user={user} />} />
         </Routes>
       </div>
     </>

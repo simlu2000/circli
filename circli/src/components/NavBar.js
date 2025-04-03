@@ -2,13 +2,10 @@ import React, { useState } from 'react';
 import { AppBar, Box, Toolbar, IconButton, Typography, Menu, MenuItem, Avatar, Tooltip, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
-import { getAuth, signOut } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
 import logo from '../../src/logo.png';
 
 const pages = ['Feed'];
-const settings = ['UserProfile'];
+const settings = ['Profile'];
 
 function NavBar({ user }) {
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -29,36 +26,25 @@ function NavBar({ user }) {
     setAnchorElUser(null);
   };
 
-  const auth = getAuth();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        navigate('/Home');
-      })
-      .catch((error) => {
-        console.error('Error during logout', error);
-      });
-  };
 
   return (
-    <AppBar position="static" style={{  backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    <AppBar position="static" style={{
+      backgroundColor: 'rgba(255, 255, 255, 0.9)',
       backdropFilter: 'blur(10px)',
-      boxShadow:'0 2px 4px rgba(0, 0, 0, 0.1)',  
+      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
       width: 'auto',
-      marginLeft:'2%',
-      marginRight:'2%',
-      marginTop:'1%',
-      borderRadius:'35px',
+      marginLeft: '5%',
+      marginRight: '5%',
+      marginTop: '1%',
+      borderRadius: '35px',
     }}>
       <Container disableGutters className="navbar-container">
         <Toolbar disableGutters className="navbar-toolbar">
-          <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px', borderRadius: '25px' }} />
+          <img src={logo} alt="Circli Logo" style={{ height: '50px', marginRight: '10px', borderRadius: '25px' }} />
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
-              size="large"
+              size="extra-large"
               aria-label="account of current user"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -138,9 +124,8 @@ function NavBar({ user }) {
                   <Typography sx={{ textAlign: 'center' }}>
                     <Link to={`/${setting}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                       {setting} <br />
-                      <LogoutIcon onClick={handleLogout} style={{ cursor: 'pointer' }} />
                     </Link>
-                  </Typography>
+                    </Typography>
                 </MenuItem>
               ))}
             </Menu>
