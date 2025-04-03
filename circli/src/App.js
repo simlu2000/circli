@@ -16,7 +16,7 @@ const AppContent = () => {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage] = useState('');
 
   useEffect(() => {
     const auth = getAuth();

@@ -15,7 +15,6 @@ const SignIn = () => {
   const [isRegistering, setIsRegistering] = useState(false); //stato per determinare se siamo in modalità registrazione
   const [errorMessage, setErrorMessage] = useState('');
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1024 });
-  const isMobile = useMediaQuery({ maxWidth: 1023 });
   const navigate = useNavigate();
   const auth = getAuth();
 
