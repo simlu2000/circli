@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Button, TextField, Container, Typography, Box, backdropClasses } from '@mui/material';
+import React, { useState} from 'react';
+import { Button, TextField, Container, Typography, Box} from '@mui/material';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { db } from '../firebaseConfig';

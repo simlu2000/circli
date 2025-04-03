@@ -10,8 +10,7 @@ import { Typography } from '@mui/material';
 import Profile from './components/Profile';
 import { fetchAllPosts } from './components/postsService';
 import { db } from './firebaseConfig';
-import { light } from '@mui/material/styles/createPalette';
-import { ref, set, update, push } from 'firebase/database'; 
+import { ref, update, push } from 'firebase/database'; 
 
 const AppContent = () => {
   const [user, setUser] = useState(null);

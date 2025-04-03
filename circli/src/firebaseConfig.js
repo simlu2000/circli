@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
 import { getDatabase, ref, set } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth'; // Add signInWithEmailAndPassword import
 
@@ -18,9 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-//const analytics = getAnalytics(app);
 const db = getDatabase(app); // Ottieni l'istanza del Realtime Database
-const auth = getAuth(app);
 const GoogleProvider = new GoogleAuthProvider();
 // Export needed firebase functions
 export { app, db, ref, set, getAuth, GoogleAuthProvider,GoogleProvider, signInWithPopup, signInWithEmailAndPassword };

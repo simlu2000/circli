@@ -3,7 +3,6 @@ import ButtonNewPost from './ButtonNewPost';
 import DialogNewPost from './DialogNewPost';
 import { AiFillHeart } from 'react-icons/ai';
 import { getDatabase, ref, get, remove, push, set, serverTimestamp } from 'firebase/database';
-import { getAuth } from 'firebase/auth';
 
 const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
   const [allPosts, setAllPosts] = useState({});
