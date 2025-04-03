@@ -55,23 +55,6 @@ function NavBar({ user }) {
       <Container disableGutters className="navbar-container">
         <Toolbar disableGutters className="navbar-toolbar">
           <img src={logo} alt="Circli Logo" style={{ height: '40px', marginRight: '10px', borderRadius: '25px' }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="#app-bar-with-responsive-menu"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            CIRCLI
-          </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
