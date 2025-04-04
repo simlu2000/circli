@@ -3,6 +3,9 @@ import ButtonNewPost from './ButtonNewPost';
 import DialogNewPost from './DialogNewPost';
 import { AiFillHeart } from 'react-icons/ai';
 import { getDatabase, ref, get, remove, push, set, serverTimestamp } from 'firebase/database';
+import { Typography } from '@mui/material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite'; 
 
 const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
   const [allPosts, setAllPosts] = useState({});
@@ -88,10 +91,11 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
     <div >
       <ButtonNewPost onClick={handleNewPostOpen} />
       <DialogNewPost open={newPostOpen} onClose={handleNewPostClose} user={user} />
-
+      <Typography variant="h5" sx={{textAlign:"left", marginLeft:'5%', marginTop:'5%'}}>Feed</Typography>
       {Object.keys(allPosts).length === 0 ? (
         <p>No posts available</p>
       ) : (
+        
         Object.entries(allPosts).map(([userId, userPosts]) => (
           <div key={userId} className="post">
             {Object.entries(userPosts).map(([postId, postData]) => (
@@ -115,17 +119,11 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
                       }
                     }}
                   >
-                    <AiFillHeart style={{ color: postData.likes && postData.likes[user.uid] ? 'blue' : 'red' }} />
-                    {postData.likes && postData.likes[user.uid] ? 'Unlike' : 'Like'} ({postData.likes ? Object.keys(postData.likes).length : 0})
+                    {postData.likes && postData.likes[user.uid] ? <FavoriteBorderIcon /> :  <FavoriteIcon sx={{color:"#74ebd5"}} />} {postData.likes ? Object.keys(postData.likes).length : 0}
                   </button>
 
                   <div className="comments-section">
-                    {postData.comments && Object.entries(postData.comments).map(([commentId, commentData]) => (
-                      <div key={commentId} className="comment">
-                        <p><strong>{commentData.displayName}:</strong> {commentData.text}</p>
-                      </div>
-                    ))}
-                    <textarea
+                  <textarea
                       placeholder="Add a comment..."
                       onKeyDown={(e) => {
                         if (e.key === 'Enter') {
@@ -134,6 +132,12 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
                         }
                       }}
                     />
+                    {postData.comments && Object.entries(postData.comments).map(([commentId, commentData]) => (
+                      <div key={commentId} className="comment">
+                        <p><strong>{commentData.displayName}:</strong> {commentData.text}</p>
+                      </div>
+                    ))}
+                    
                   </div>
                 </div>
               </div>

@@ -13,9 +13,9 @@ const ProfileContainer = styled.div`
   align-items: center;
   padding: 30px;
   background-color: #f9f9f9;
-  width: 100%; // Occupare l'intera larghezza
-  min-height: 100vh; // Occupare l'intera altezza della viewport
-  box-sizing: border-box; // Includere padding e bordi nella larghezza totale
+  width: 100%; 
+  min-height: 100vh;
+  box-sizing: border-box; 
 `;
 
 const ProfileHeader = styled.h1`
@@ -23,11 +23,11 @@ const ProfileHeader = styled.h1`
   margin-bottom: 30px;
   color: #333;
   text-align: center;
-  width: 100%; // Assicurarsi che l'intestazione occupi l'intera larghezza
+  width: 100%; 
 `;
 
 const ProfileInfo = styled.div`
-  width: 90%; // Larghezza relativa per lasciare un po' di margine
+  width: 90%;
   background-color: #fff;
   border-radius: 8px;
   padding: 25px;
@@ -47,7 +47,7 @@ const LogoutButton = styled(LogoutIcon)`
 `;
 
 const PostsContainer = styled.div`
-  width: 90%; // Larghezza relativa per lasciare un po' di margine
+  width: 90%;
   margin-top: 20px;
 `;
 
@@ -171,7 +171,7 @@ function Profile({ user, getAllPosts, addLike }) {
     <>
       {user ? (
         <ProfileContainer id="profile">
-          <ProfileHeader>Hi {user.displayName || user.email}</ProfileHeader>
+          <ProfileHeader>{user.displayName || user.email}</ProfileHeader>
           <ProfileInfo>
             <UserField textValue={user.displayName} labelText="Name" className="user-info" />
             <UserField textValue={user.email} labelText="E-mail" className="user-info" />

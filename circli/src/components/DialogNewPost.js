@@ -1,5 +1,4 @@
-import React, { useState,useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import AppBar from '@mui/material/AppBar';
@@ -10,7 +9,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Slide from '@mui/material/Slide';
 import { ref, push } from 'firebase/database';
 import { db } from '../firebaseConfig';
-import { TextField, Grid } from '@mui/material';
+import { TextField, Box } from '@mui/material';
 import PublishIcon from '@mui/icons-material/Publish';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -20,12 +19,10 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function DialogNewPost({ open, onClose, user }) {
   const [postText, setPostText] = useState('');
   const [postHashtags, setPostHashtags] = useState('');
-  const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleTextChange = (event) => setPostText(event.target.value);
   const handleHashtagsChange = (event) => setPostHashtags(event.target.value);
-
 
   const sendPostToDb = (user, text, hashtags) => {
     try {
@@ -56,7 +53,7 @@ export default function DialogNewPost({ open, onClose, user }) {
 
   return (
     <Dialog fullScreen open={open} onClose={onClose} TransitionComponent={Transition}>
-      <AppBar sx={{ position: 'relative' }}>
+      <AppBar sx={{ position: 'relative', backgroundColor: '#67dbb3' }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" onClick={onClose} aria-label="close">
             <CloseIcon />
@@ -70,28 +67,25 @@ export default function DialogNewPost({ open, onClose, user }) {
           </Button>
         </Toolbar>
       </AppBar>
-      <Grid container spacing={2} sx={{ padding: '20px' }}>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            multiline
-            rows={4}
-            placeholder="Scrivi il tuo post..."
-            value={postText}
-            onChange={handleTextChange}
-            label="Post"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            placeholder="Hashtags (separati da virgola)"
-            value={postHashtags}
-            onChange={handleHashtagsChange}
-            label="Hashtags"
-          />
-        </Grid>
-      </Grid>
+      <Box sx={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 64px)', padding: '20px' }}>
+        <TextField
+          fullWidth
+          multiline
+          rows={10}
+          placeholder="Write your post..."
+          value={postText}
+          onChange={handleTextChange}
+          label="Post"
+          sx={{ mb: 2 }}
+        />
+        <TextField
+          fullWidth
+          placeholder="Hashtags"
+          value={postHashtags}
+          onChange={handleHashtagsChange}
+          label="Hashtags"
+        />
+      </Box>
       {errorMessage && (
         <div style={{ padding: '20px' }}>
           <Typography variant="body2" color="error">
