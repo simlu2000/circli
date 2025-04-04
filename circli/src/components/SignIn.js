@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import { Button, TextField, Container, Typography, Box} from '@mui/material';
+import React, { useState } from 'react';
+import { Button, TextField, Container, Typography, Box } from '@mui/material';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { db } from '../firebaseConfig';
@@ -88,18 +88,19 @@ const SignIn = () => {
   return (
 
     <Container maxWidth="md">
-      <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center" 
-      sx={{ 
-        mt: 5, 
-        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-      backdropFilter: 'blur(10px)',
-      boxShadow:'0 2px 4px rgba(0, 0, 0, 0.1)', borderRadius:'15px',marginTop:'15%',}}>
+      <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center"
+        sx={{
+          mt: 5,
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: '15px', marginTop: '15%',
+        }}>
         {isDesktopOrLaptop && (
-          <Box sx={{ width: '50%', paddingRight: 2,marginRight:'2%' }}>
+          <Box sx={{ width: '50%', paddingRight: 2, marginRight: '2%' }}>
             <Lottie options={defaultOptions} height={500} width={500} />
           </Box>
         )}
-        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '100%' , padding:'15px'}}>
+        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '100%', padding: '15px' }}>
           <Typography variant="h5" gutterBottom>
             {isRegistering ? 'Register' : 'Sign In'}
           </Typography>
@@ -138,7 +139,7 @@ const SignIn = () => {
               onChange={(e) => setPassword(e.target.value)}
               margin="normal"
             />
-            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, backgroundColor: '#2c54ac' }}>
+            <Button type="submit" variant="contained" color="primary" fullWidth sx={{ mt: 2, backgroundColor: '#67dbb3' }}>
               {isRegistering ? 'Register' : 'Sign In'}
             </Button>
           </form>
