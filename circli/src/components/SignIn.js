@@ -93,14 +93,16 @@ const SignIn = () => {
           mt: 5,
           backgroundColor: 'rgba(255, 255, 255, 0.9)',
           backdropFilter: 'blur(10px)',
-          boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', borderRadius: '15px', marginTop: '15%',
+          boxShadow: '0 1px 4px rgba(0, 0, 0, 0.1)', 
+          borderRadius: '15px', 
+          marginTop: '5%',
         }}>
         {isDesktopOrLaptop && (
           <Box sx={{ width: '50%', paddingRight: 2, marginRight: '2%' }}>
             <Lottie options={defaultOptions} height={500} width={500} />
           </Box>
         )}
-        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '100%', padding: '15px' }}>
+        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '80%', padding: '15px',marginTop: isDesktopOrLaptop ? '0' : '50%' }}>
           <Typography variant="h5" gutterBottom>
             {isRegistering ? 'Register' : 'Sign In'}
           </Typography>

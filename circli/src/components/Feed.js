@@ -15,20 +15,20 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
   const handleNewPostOpen = () => setNewPostOpen(true);
   const handleNewPostClose = () => setNewPostOpen(false);
 
-  useEffect(() => {
-    const fetchAllPostsData = async () => {
-      setLoading(true);
-      try {
-        const postsList = await fetchAllPosts(user);
-        console.log('Fetched posts:', postsList);
-        setAllPosts(postsList || {});
-      } catch (error) {
-        console.error('Error fetching posts: ', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchAllPostsData = async () => {
+    setLoading(true);
+    try {
+      const postsList = await fetchAllPosts(user);
+      console.log('Fetched posts:', postsList);
+      setAllPosts(postsList || {});
+    } catch (error) {
+      console.error('Error fetching posts: ', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     if (user) {
       fetchAllPostsData();
     }
@@ -44,7 +44,7 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
 
       if (!likeExists) {
         addLike(userId, postId, user.uid);
-        window.location.reload();
+        await fetchAllPostsData();
       } else {
         console.log('User already liked this post.');
       }
@@ -98,52 +98,58 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
         
         Object.entries(allPosts).map(([userId, userPosts]) => (
           <div key={userId} className="post">
-            {Object.entries(userPosts).map(([postId, postData]) => (
-              <div key={postId} className="post-card">
-                <div className="post-header">
-                  <p><strong>{postData.displayName}</strong></p>
-                  <p>{new Date(postData.createdAt).toLocaleString()}</p>
-                </div>
-                <div className="post-body">
-                  <p>{postData.textContent}</p>
-                  <p className="post-hashtags">{postData.hashtagsContent}</p>
-                </div>
-                <div className="post-footer">
-                  <button
-                    className="like-button"
-                    onClick={() => {
-                      if (postData.likes && postData.likes[user.uid]) {
-                        handleUnlike(userId, postId);
-                      } else {
-                        handleLike(userId, postId);
-                      }
-                    }}
-                  >
-                    {postData.likes && postData.likes[user.uid] ? <FavoriteBorderIcon /> :  <FavoriteIcon sx={{color:"#74ebd5"}} />} {postData.likes ? Object.keys(postData.likes).length : 0}
-                  </button>
-
-                  <div className="comments-section">
-                  <textarea
-                      placeholder="Add a comment..."
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          handleComment(userId, postId, e.target.value);
-                          e.target.value = '';
+            {Object.entries(userPosts)
+              .sort((a, b) => b[1].createdAt - a[1].createdAt) //ordinamento decrescente
+              .map(([postId, postData]) => (
+                <div key={postId} className="post-card">
+                  <div className="post-header">
+                    <p><strong>{postData.displayName}</strong></p>
+                    <p>{new Date(postData.createdAt).toLocaleString()}</p>
+                  </div>
+                  <div className="post-body">
+                    <p>{postData.textContent}</p>
+                    <p className="post-hashtags">{postData.hashtagsContent}</p>
+                  </div>
+                  <div className="post-footer">
+                    <button
+                      className="like-button"
+                      onClick={() => {
+                        if (postData.likes && postData.likes[user.uid]) {
+                          handleUnlike(userId, postId);
+                        } else {
+                          handleLike(userId, postId);
                         }
                       }}
-                    />
-                    {postData.comments && Object.entries(postData.comments).map(([commentId, commentData]) => (
-                      <div key={commentId} className="comment">
-                        <p><strong>{commentData.displayName}:</strong> {commentData.text}</p>
-                      </div>
-                    ))}
-                    
+                    >
+                      {postData.likes && postData.likes[user.uid]
+                        ? <FavoriteIcon />
+                        : <FavoriteBorderIcon sx={{ color: "#74ebd5" }} />}
+                      {postData.likes ? Object.keys(postData.likes).length : 0}
+                    </button>
+        
+                    <div className="comments-section">
+                      <textarea
+                        placeholder="Add a comment..."
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.shiftKey) {
+                            e.preventDefault();
+                            handleComment(userId, postId, e.target.value);
+                            e.target.value = '';
+                          }
+                        }}
+                      />
+                      {postData.comments && Object.entries(postData.comments).map(([commentId, commentData]) => (
+                        <div key={commentId} className="comment">
+                          <p><strong>{commentData.displayName}:</strong> {commentData.text}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         ))
+        
       )}
     </div>
   );
