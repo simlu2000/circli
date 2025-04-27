@@ -89,7 +89,7 @@ const SignIn = () => {
 
   return (
 
-    <Container maxWidth="md">
+    <Container maxWidth="md" sx={{marginTop: isPhone ? '40%' : '25%'}}>
       <Box display="flex" flexDirection={isDesktopOrLaptop ? "row" : "column"} alignItems="center"
         sx={{
           mt: 5,
@@ -104,7 +104,7 @@ const SignIn = () => {
             <Lottie options={defaultOptions} height={500} width={500} />
           </Box>
         )}
-        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '80%', padding: '15px',marginTop: isDesktopOrLaptop ? '0' : '20%', marginTop: isPhone ? '40%' : '25%'  }}>
+        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '80%', padding: '15px',marginTop: isDesktopOrLaptop ? '0' : '20%', marginTop: isPhone ? '20%' : '15%'  }}>
           <Typography variant="h5" gutterBottom>
             {isRegistering ? 'Register' : 'Sign In'}
           </Typography>

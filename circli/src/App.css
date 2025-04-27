@@ -3,11 +3,10 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   height: 100vh;
+  background: #74ebd5;
+  background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);
+  background: linear-gradient(to right, #ACB6E5, #74ebd5);
 
-    background: #74ebd5; 
-    background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5); 
-    background: linear-gradient(to right, #ACB6E5, #74ebd5); 
- 
 }
 
 .home-intro-container {
@@ -39,7 +38,7 @@ body {
   margin-bottom: 10px;
   letter-spacing: 1px;
   font-weight: 700;
-  color:#000000;
+  color: #000000;
 
 }
 
@@ -52,7 +51,7 @@ body {
   font-size: 1.5rem;
   opacity: 0.8;
   margin-top: 5px;
-  color:#000000;
+  color: #000000;
 }
 
 
@@ -104,7 +103,6 @@ body {
 /* Feed Section */
 .feed-container {
   padding: 20px;
-
 }
 
 .feed-title {
@@ -119,8 +117,6 @@ body {
   border: none;
   display: block;
   box-shadow: '0 1px 5px rgba(0.2, 0.2, 0.2, 0.1)';
-
-
 }
 
 .post-header {
@@ -234,6 +230,9 @@ button:disabled {
 
   .post {
     padding: 10px;
+    width:auto;
+    margin-left:3%;
+    margin-right:3%;
   }
 
   .post-header {
@@ -256,11 +255,13 @@ button:disabled {
   .comment p {
     font-size: 12px;
   }
+
   .lottie-responsive {
     width: 60%;
     height: auto;
     max-width: 400px;
   }
+
   .home-intro-container {
     height: auto;
     justify-content: center;
@@ -274,9 +275,10 @@ button:disabled {
     margin-left: 20%;
     margin-right: 20%;
   }
+
   .home-intro-title {
     font-size: 2.5rem;
-    margin-top:-15%;
+    margin-top: -15%;
   }
 
   .home-intro-subtitle {

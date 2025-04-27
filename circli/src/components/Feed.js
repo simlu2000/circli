@@ -88,7 +88,7 @@ const Feed = ({ user, getAllPosts: fetchAllPosts, addLike }) => {
   if (loading) return <p>Loading posts...</p>;
 
   return (
-    <div >
+    <div>
       <ButtonNewPost onClick={handleNewPostOpen} />
       <DialogNewPost open={newPostOpen} onClose={handleNewPostClose} user={user} />
       <Typography variant="h5" sx={{textAlign:"left", marginLeft:'5%', marginTop:'5%'}}>Feed</Typography>
