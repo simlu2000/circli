@@ -15,6 +15,8 @@ const SignIn = () => {
   const [isRegistering, setIsRegistering] = useState(false); //stato per determinare se siamo in modalità registrazione
   const [errorMessage, setErrorMessage] = useState('');
   const isDesktopOrLaptop = useMediaQuery({ minWidth: 1024 });
+  const isPhone = useMediaQuery({ maxWidth: 481 });
+
   const navigate = useNavigate();
   const auth = getAuth();
 
@@ -102,7 +104,7 @@ const SignIn = () => {
             <Lottie options={defaultOptions} height={500} width={500} />
           </Box>
         )}
-        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '80%', padding: '15px',marginTop: isDesktopOrLaptop ? '0' : '50%' }}>
+        <Box sx={{ width: isDesktopOrLaptop ? '50%' : '80%', padding: '15px',marginTop: isDesktopOrLaptop ? '0' : '20%', marginTop: isPhone ? '40%' : '25%'  }}>
           <Typography variant="h5" gutterBottom>
             {isRegistering ? 'Register' : 'Sign In'}
           </Typography>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function CtaButton() {
+export default function CtaButton({to}) {
   const navigate = useNavigate();
 
   const handleSignInClick = () => {
@@ -10,7 +10,7 @@ export default function CtaButton() {
 
   return (
     <div>
-      <button onClick={handleSignInClick} style={{ 
+      <button className="continue" onClick={handleSignInClick} style={{ 
         backgroundColor: '#1976d2', 
         color: 'white', 
         padding: '10px 20px', 
@@ -18,7 +18,7 @@ export default function CtaButton() {
         borderRadius: '4px', 
         cursor: 'pointer' 
       }}>
-        Continue
+        {to}
       </button>
     </div>
   );
